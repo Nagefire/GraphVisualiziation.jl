@@ -246,12 +246,6 @@ git-tree-sha1 = "c7f81b22b6c255861be4007a16bfdeb60e1c7f9b"
 uuid = "5c1252a2-5f33-56bf-86c9-59e7332b4326"
 version = "0.3.11"
 
-[[GeometryTypes]]
-deps = ["ColorTypes", "FixedPointNumbers", "LinearAlgebra", "StaticArrays"]
-git-tree-sha1 = "07194161fe4e181c6bf51ef2e329ec4e7d050fc4"
-uuid = "4d00f742-c7ba-57c2-abde-4428a4b178cb"
-version = "0.8.4"
-
 [[Graphics]]
 deps = ["Colors", "LinearAlgebra", "NaNMath"]
 git-tree-sha1 = "2c1cf4df419938ece72de17f368a021ee162762e"

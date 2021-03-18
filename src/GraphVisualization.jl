@@ -7,7 +7,7 @@ import AbstractPlotting.Colors: @colorant_str
 
 import ArnoldiMethod: LR
 
-import GeometryTypes: Circle, Sphere, Point
+import GeometryBasics: Circle, Sphere, Point, Point2, Point3
 
 import LightGraphs: AbstractGraph, adjacency_matrix, laplacian_matrix,
                     is_directed, edges, degree, src, dst, nv, ne
@@ -41,7 +41,7 @@ Returns a Makie Scene containing a plot of the graph.
 - `edgelinewidth` - The thickness for edges, defaults to `3`.
 - `edgelinec` - Color of edges, defaults to `colorant"lightgrey"`.
 """
-function gplot(G::AbstractGraph, points::Vector{Point{2, R}};
+function gplot(G::AbstractGraph, points::Vector{Point2{R}};
                resolution::Tuple{Int, Int}=(1200, 900),
                backgroundc=colorant"#202020",
                keyargs...) where R <: Real
@@ -62,7 +62,7 @@ gplot(G::AbstractGraph; layout::Function=sfdp_layout, keyargs...)=
 Plots `G` onto a new axis in `scene` using `x` and `y` as coordinates for
 each vertex.
 """
-function gplot!(scene::Scene, G::AbstractGraph, points::Vector{Point{2, R}};
+function gplot!(scene::Scene, G::AbstractGraph, points::Vector{Point2{R}};
                 nodelabel=nothing,
                 nodefillc=colorant"green",
                 nodesize=0.5,
@@ -104,7 +104,7 @@ gplot!(scene::Scene, G::AbstractGraph; layout::Function=sfdp_layout,
        keyargs...)=gplot!(scene, G, layout(G); keyargs...)
 
 # Returns the a set of lines representing undirected edges
-function _lines2d(G::AbstractGraph, points::Vector{Point{2, R}}) where R <: Real
+function _lines2d(G::AbstractGraph, points::Vector{Point2{R}}) where R <: Real
 	res = fill(Point(0., 0.) => Point(0., 0.), ne(G))
 	i = 1
 
@@ -119,7 +119,7 @@ end
 # Create a set of arrows representing directed edges
 # TODO: Compute the center-edge offset so that the arrows begin and meet
 # at the boundary of each vertex
-function _vecs2d(G::AbstractGraph, points::Vector{Point{2, R}}, r::R) where R <: Real
+function _vecs2d(G::AbstractGraph, points::Vector{Point2{R}}, r::R) where R <: Real
 	m = ne(G)
 	pos = fill(Point(0., 0.), m)
 	cmp = fill(Point(0., 0.), m)
@@ -146,7 +146,7 @@ Returns a scene containing a 3d plot of `G`.
 - `edgelinewidth` - the thickness of the edges
 - `edgelinec` - the color of the edges.
 """
-function gplot3d(G::AbstractGraph, points::Vector{Point{3, R}};
+function gplot3d(G::AbstractGraph, points::Vector{Point3{R}};
                  resolution::Tuple{Int, Int}=(1200, 900),
                  backgroundc=colorant"#202020",
                  keyargs...) where R <: Real
@@ -172,7 +172,7 @@ Plots `G` onto the scene as a 3-dimensional figure.
 - `edgelinewidth` - the thickness of the edges.
 - `edgelinec` - the color of the edges.
 """
-function gplot3d!(scene::Scene, G::AbstractGraph, points::Vector{Point{3, R}};
+function gplot3d!(scene::Scene, G::AbstractGraph, points::Vector{Point3{R}};
                   nodefillc=colorant"green",
                   nodesize=0.3,
                   edgelinewidth=2.5,

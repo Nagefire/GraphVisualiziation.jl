@@ -44,11 +44,11 @@ function spectral_layout(G::AbstractGraph; dims::Int=2, weight::SparseMatrixCSC=
 end
 
 function _spectral2d(L::Matrix)
-	eigenvalues, eigenvectors = eigen(L)
-	index = sortperm(eigenvalues)[2:3]
+	eigvals, eigvecs = eigen(L)
+	index = sortperm(eigvals)[2:3]
 
-	return [Point(real(eigenvectors[i, index[1]]),
-	        real(eigenvectors[i, index[1]])) for i=1:size(A, 1)]
+	return [Point2(real(eigvecs[i, index[1]]),
+	               real(eigvecs[i, index[1]])) for i=1:size(A, 1)]
 end
 
 function _spectral2d(A::SparseMatrixCSC)
@@ -58,8 +58,8 @@ function _spectral2d(A::SparseMatrixCSC)
 	eigenvalues, eigenvectors = eigs(L, nev=3, which=LR())
 	index = sortperm(real(eigenvalues))[2:3]
 
-	return [Point(real(eigenvectors[i, index[1]]),
-	              real(eigenvectors[i, index[1]])) for i=1:size(A, 1)]
+	return [Point2(real(eigenvectors[i, index[1]]),
+	               real(eigenvectors[i, index[1]])) for i=1:size(A, 1)]
 end
 
 # Note: A graph must have at least 4 vertices to use 3d spectral positioning
@@ -67,9 +67,9 @@ function _spectral3d(L::Matrix)
 	eigvals, eigvecs = eigen(L)
 	ind = sortperm(real(eigvals))[2:4]
 
-	return [Point(real(eigvecs[i, ind[1]]),
-		      real(eigvecs[i, ind[2]]),
-		      real(eigvecs[i, ind[3]])) for i=1:size(L, 1)]
+	return [Point3(real(eigvecs[i, ind[1]]),
+		       real(eigvecs[i, ind[2]]),
+		       real(eigvecs[i, ind[3]])) for i=1:size(L, 1)]
 end
 
 function _spectral3d(A::SparseMatrixCSC)
@@ -79,7 +79,7 @@ function _spectral3d(A::SparseMatrixCSC)
 	eigenvals, eigenvecs = eigs(L, nev=4, which=LR())
 	ind = sortperm(real(eigenvals))[2:4]
 
-	return [Point(real(eigenvecs[i, ind[1]]),
-	              real(eigenvecs[i, ind[2]]),
-	              real(eigenvecs[i, ind[3]])) for i=1:size(A, 1)]
+	return [Point3(real(eigenvecs[i, ind[1]]),
+	               real(eigenvecs[i, ind[2]]),
+	               real(eigenvecs[i, ind[3]])) for i=1:size(A, 1)]
 end
