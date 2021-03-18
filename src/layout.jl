@@ -1,13 +1,3 @@
-import NetworkLayout
-
-import LinearAlgebra: eigen
-
-import SparseArrays: SparseMatrixCSC, sparse
-
-import ArnoldiMethod: LR
-
-import LightGraphs.LinAlg: eigs
-
 export tree_layout, shell_layout, circular_layout, spring_layout,
        spectral_layout
 

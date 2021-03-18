@@ -5,10 +5,20 @@ import AbstractPlotting: Scene, linesegments!, scatter!, meshscatter!,
 
 import AbstractPlotting.Colors: @colorant_str
 
+import ArnoldiMethod: LR
+
 import GeometryTypes: Circle, Sphere, Point
 
 import LightGraphs: AbstractGraph, adjacency_matrix, laplacian_matrix,
                     is_directed, edges, degree, src, dst, nv, ne
+
+import LightGraphs.LinAlg: eigs
+
+import LinearAlgebra: eigen
+
+import NetworkLayout
+
+import SparseArrays: SparseMatrixCSC, sparse
 
 export gplot, gplot!, gplot3d, gplot3d!, spectral_layout, tree_layout,
        shell_layout, circular_layout
