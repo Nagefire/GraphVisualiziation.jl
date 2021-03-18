@@ -1,9 +1,9 @@
 module GraphVisualization
 
-import Colors: @colorant_str
-
 import AbstractPlotting: Scene, linesegments!, scatter!, meshscatter!,
                          arrows!, text!
+
+import AbstractPlotting.Colors: @colorant_str
 
 import GeometryTypes: Circle, Sphere, Point
 
