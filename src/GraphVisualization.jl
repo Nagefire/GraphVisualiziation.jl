@@ -9,6 +9,8 @@ import ArnoldiMethod: LR
 
 import GeometryBasics: Circle, Sphere, Point, Point2, Point3
 
+using GLMakie
+
 import LightGraphs: AbstractGraph, adjacency_matrix, laplacian_matrix,
                     is_directed, edges, degree, src, dst, nv, ne
 
