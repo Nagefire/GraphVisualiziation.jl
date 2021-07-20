@@ -1,9 +1,9 @@
 module GraphVisualization
 
-import AbstractPlotting: Scene, linesegments!, scatter!, meshscatter!,
+import Makie: Scene, linesegments!, scatter!, meshscatter!,
                          arrows!, text!
 
-import AbstractPlotting.Colors: @colorant_str
+import Makie.Colors: @colorant_str
 
 import ArnoldiMethod: LR
 
@@ -18,7 +18,7 @@ import LightGraphs.LinAlg: eigs
 
 import LinearAlgebra: eigen
 
-import NetworkLayout
+import NetworkLayout: buchheim, sfdp, shell, spectral, spring
 
 import SparseArrays: SparseMatrixCSC, sparse
 
@@ -26,7 +26,15 @@ export gplot, gplot!, gplot3d, gplot3d!, spectral_layout, tree_layout,
        shell_layout, circular_layout
 
 # Aliases for layouts
-include("layout.jl")
+tree_layout=buchheim
+
+sfdp_layout=sfdp
+
+shell_layout=shell
+
+spectral_layout=spectral
+
+spring_layout=spring
 
 """
 	gplot(G) → scene
@@ -34,7 +42,7 @@ include("layout.jl")
 Returns a Makie Scene containing a plot of the graph.
 
 # Optional Keyword Arguments
-- `layout` - The graph algorithm to use for determining vertex placement, defaults to `spectral_layout`.
+- `layout` - The graph algorithm to use for determining vertex placement, defaults to `sfdp_layout`.
 - `resolution` - The size/resolution of the scene to be returned, defaults to `(1200, 900)`.
 - `backgroundc` - The color of the scene to be returned, defaults to `"colorant"#202020"`.
 - `nodefillc` - The color for each node, defaults to `colorant"green"`.
@@ -159,7 +167,7 @@ function gplot3d(G::AbstractGraph, points::Vector{Point3{R}};
 	res
 end
 
-gplot3d(G::AbstractGraph; layout::Function=_spectral3d, keyargs...)=
+gplot3d(G::AbstractGraph; layout::Function=spectral_layout, keyargs...)=
 	gplot3d(G, layout(Matrix(laplacian_matrix(G))); keyargs...)
 
 """
@@ -190,7 +198,7 @@ function gplot3d!(scene::Scene, G::AbstractGraph, points::Vector{Point3{R}};
 	meshscatter!(scene, points, color=nodefillc, markersize=nodesize)
 end
 
-gplot3d!(scene::Scene, G::AbstractGraph; layout::Function=_spectral3d,
+gplot3d!(scene::Scene, G::AbstractGraph; layout::Function=spectral_layout,
          keyargs...)=
 	gplot3d!(scene, G, layout(Matrix(laplacian_matrix(G))); keyargs...)
 

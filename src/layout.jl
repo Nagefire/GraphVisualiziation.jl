@@ -1,18 +1,6 @@
 export tree_layout, shell_layout, circular_layout, spring_layout,
        spectral_layout
 
-tree_layout(G::AbstractGraph; keyargs...)=
-	NetworkLayout.Buchheim.layout(adjacency_matrix(G); keyargs...)
-
-shell_layout(G::AbstractGraph)=NetworkLayout.Shell.layout(adjacency_matrix(G))
-
-circular_layout(G::AbstractGraph)=NetworkLayout.Circular.layout(adjacency_matrix(G))
-
-spring_layout(G::AbstractGraph; keyargs...)=
-	NetworkLayout.Spring.layout(adjacency_matrix(G); keyargs...)
-
-sfdp_layout(G::AbstractGraph; keyargs...)=
-	NetworkLayout.SFDP.layout(adjacency_matrix(G); keyargs...)
 
 function spectral_layout(G::AbstractGraph; dims::Int=2, weight::SparseMatrixCSC=nothing)
 	if nv(G) == 1
